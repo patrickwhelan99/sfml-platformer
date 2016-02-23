@@ -96,7 +96,8 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
             }
 
         }
-
+        
+        // Add check if touching ground
         if (hit)
         {
             player.move(0, -y);
