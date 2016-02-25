@@ -8,7 +8,7 @@ void texture_init(std::vector<sf::Texture> &textures)
 {
     DIR *dir;
     struct dirent *ent;
-    dir = opendir("./textures");
+    dir = opendir("../../textures");
     if (dir != NULL)
     {
         while ((ent = readdir (dir)) != NULL)
@@ -16,7 +16,7 @@ void texture_init(std::vector<sf::Texture> &textures)
             std::string fileName = ent->d_name;
             if(!(fileName == ".") && !(fileName == "..") && !(fileName == "Character") && !(fileName == "anims"))
             {
-                std::string tang = "./textures/";
+                std::string tang = "../../textures/";
                 std::string texStr = tang + ent->d_name;
                 sf::Texture newTexture;
                 newTexture.loadFromFile(texStr);

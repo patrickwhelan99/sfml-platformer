@@ -3,7 +3,7 @@
 block::block()
 {
     sf::Texture whiteBox;
-    whiteBox.loadFromFile("./textures/white_box.png");
+    whiteBox.loadFromFile("../../textures/white_box.png");
 
     this->setTexture(whiteBox);
 }

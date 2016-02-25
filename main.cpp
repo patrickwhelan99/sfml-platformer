@@ -20,7 +20,7 @@ int main()
 
     // Define player
     sf::Texture spriteTexture;
-    spriteTexture.loadFromFile("./textures/red_box.png");
+    spriteTexture.loadFromFile("../../textures/red_box.png");
     sf::Sprite player(spriteTexture);
     float jumpSpeed = 0;
 
@@ -49,7 +49,7 @@ int main()
     int texturePos = 0;
 
     sf::Font font;
-    font.loadFromFile("DroidSans.ttf");
+    font.loadFromFile("../../fonts/DroidSans.ttf");
 
 
     initialize(player, camera, sprites);
