@@ -16,11 +16,6 @@ int main()
 
     //define textures
     std::vector<sf::Texture> textures;
-    /*
-    sf::Texture redBox = texture_init(textures, "red_box.png");
-    sf::Texture whiteBox = texture_init(textures, "white_box.png");
-    sf::Texture blueBox = texture_init(textures, "blue_box.png");
-    */
     texture_init(textures);
 
     // Define player

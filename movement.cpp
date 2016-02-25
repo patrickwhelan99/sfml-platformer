@@ -14,25 +14,18 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
             x -= speed;
-        }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-            x += speed;
-        }
-
-        // check if proposed x movement will cause collision
+	// check if proposed x movement will cause collision
         player.move(x, 0);
-        sf::FloatRect playerHitBox = player.getGlobalBounds();
-
+        
         bool hit = false;
-        int counter = 0;
+	int counter = 0;
         for (auto const &sprite: sprites)
         {
-            counter ++;
             sf::FloatRect boxHitBox = sprite.getGlobalBounds();
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
 
-            if (playerHitBox.intersects(boxHitBox))
+            while (playerHitBox.intersects(boxHitBox))
             {
                 hit = true;
                 if(sprite.deadly == true)
@@ -40,27 +33,62 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
                 if(sprite.breakable == true)
                     sprites.erase(sprites.begin() + counter);
-            }
-
-            if(hit)
-            {
-                if(sprite.savePoint)
+		
+		if(sprite.savePoint)
                 {
                     sf::Vector2f temp = sprite.getPosition();
                     temp.y -= 50;
                     lastCheckpoint = temp;
                 }
+	     player.move(-x, y);
+	     playerHitBox = player.getGlobalBounds();
             }
         }
 
-        if (hit)
+        }// end left if
+
+
+
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            player.move(-x, 0);
-            x = -x;
-            //std::cout << "X collision" << std::endl;
+            x += speed;
+
+	// check if proposed x movement will cause collision
+        player.move(x, 0);
+        
+        bool hit = false;
+	int counter = 0;
+        for (auto const &sprite: sprites)
+        {
+            sf::FloatRect boxHitBox = sprite.getGlobalBounds();
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
+
+            while (playerHitBox.intersects(boxHitBox))
+            {
+                hit = true;
+                if(sprite.deadly == true)
+                    respawn(player, lastCheckpoint);
+
+                if(sprite.breakable == true)
+                    sprites.erase(sprites.begin() + counter);
+		
+		if(sprite.savePoint)
+                {
+                    sf::Vector2f temp = sprite.getPosition();
+                    temp.y -= 50;
+                    lastCheckpoint = temp;
+                }
+	     player.move(-x, 0);
+	     playerHitBox = player.getGlobalBounds();
+            }
         }
 
-        player.move(-x, 0);
+
+        } // end right if
+
+        
+
 
 /********************************************************************************/
 /**                           X - Stuff                                        **/
@@ -68,100 +96,98 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 /**                           Y - Stuff                                        **/
 /********************************************************************************/
 
+	y += gravity;
 
-        // check if proposed y movement will cause collision
-        y += gravity;
+
+	// check if proposed y movement will cause collision
         player.move(0, y);
-
-
-
-
-        playerHitBox = player.getGlobalBounds();
-
-        hit = false;
-        counter = 0;
+        
+        bool hit = false;
+	int counter = 0;
+	bool canjump = false;
         for (auto const &sprite: sprites)
         {
-            counter ++;
             sf::FloatRect boxHitBox = sprite.getGlobalBounds();
-
-            if (playerHitBox.intersects(boxHitBox))
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
+	
+            while (playerHitBox.intersects(boxHitBox))
             {
-                hit = true;
-                    if(sprite.deadly == true)
+                canjump = true;
+		hit = true;
+                if(sprite.deadly == true)
                     respawn(player, lastCheckpoint);
 
-                    if(sprite.breakable == true)
-                        sprites.erase(sprites.begin() + counter);
-            }
-
-        }
-        
-        // Add check if touching ground
-        if (hit)
-        {
-            player.move(0, -y);
-            y = -y;
-            canJump = true;
-            //std::cout << "Y collision" << std::endl;
-        }
-
-        player.move(0, y);
-
-        if (canJump)
-        {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                if(sprite.breakable == true)
+                    sprites.erase(sprites.begin() + counter);
+		
+		if(sprite.savePoint)
                 {
-                   vertSpeed = speed*1.5; // set initial velocity for the jump
+                    sf::Vector2f temp = sprite.getPosition();
+                    temp.y -= 50;
+                    lastCheckpoint = temp;
                 }
-            y -= gravity;
+	     y -= 1;
+	     player.move(0, y);
+	     playerHitBox = player.getGlobalBounds();
+            }
         }
 
+
+
+	y = 0;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canjump)
+                {
+                   vertSpeed = speed*1000; // set initial velocity for the jump
+		   y -= gravity;
+                }
+	
         if (vertSpeed > 0)
         {
-            y -= vertSpeed;
-            vertSpeed = vertSpeed / 1.001; // smaller the division the more 'steps' in the jump (smoother)
+            vertSpeed -= vertSpeed / 1.5; // smaller the division the more 'steps' in the jump (smoother)
+	    y -= vertSpeed;
         }
         else
         {
             vertSpeed = 0;
         }
-/*
-        // y += gravity;
-        // player.move(0, y);
-        playerHitBox = player.getGlobalBounds();
 
-        hit = false;
-        counter = 0;
+
+
+
+	player.move(0, y);
+
+	hit = false;
+	counter = 0;
+	canjump = false;
         for (auto const &sprite: sprites)
         {
-            counter ++;
             sf::FloatRect boxHitBox = sprite.getGlobalBounds();
-
-            if (playerHitBox.intersects(boxHitBox))
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
+	
+            while (playerHitBox.intersects(boxHitBox))
             {
-                hit = true;
-                    if(sprite.deadly == true)
+		hit = true;
+                if(sprite.deadly == true)
                     respawn(player, lastCheckpoint);
 
-                    if(sprite.breakable == true)
-                        sprites.erase(sprites.begin() + counter);
+                if(sprite.breakable == true)
+                    sprites.erase(sprites.begin() + counter);
+		
+		if(sprite.savePoint)
+                {
+                    sf::Vector2f temp = sprite.getPosition();
+                    temp.y -= 50;
+                    lastCheckpoint = temp;
+                }
+	     y = 0;
+	     y += 1;
+	     player.move(0, y);
+	     playerHitBox = player.getGlobalBounds();
             }
-
         }
-
-        if (hit)
-        {
-            player.move(0, -y);
-            y = -y;
-            canJump = true;
-        }
-
-        player.move(0, -y);
-
-*/
 
     playerVector = {x, y};
 
- return playerVector;
+return playerVector;
 }
