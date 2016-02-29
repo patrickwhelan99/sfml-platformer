@@ -2,10 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vector2f playerVector, float &vertSpeed, sf::Vector2f &lastCheckpoint)
+sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vector2f playerVector, float &vertSpeed, sf::Vector2f &lastCheckpoint, cfg config)
 {
-        const float speed = 0.15;
-        const float gravity = 0.05;
+        const float speed = 0.15 * config.speed;
+        const float gravity = 0.05 * config.gravity;
         bool canJump = false;
         float x = playerVector.x - playerVector.x / 2;
         float y = playerVector.y - playerVector.y / 2;
@@ -17,13 +17,13 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
 	// check if proposed x movement will cause collision
         player.move(x, 0);
-        
+
         bool hit = false;
 	int counter = 0;
         for (auto const &sprite: sprites)
         {
             sf::FloatRect boxHitBox = sprite.getGlobalBounds();
- 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();
 
             while (playerHitBox.intersects(boxHitBox))
             {
@@ -33,7 +33,7 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
                 if(sprite.breakable == true)
                     sprites.erase(sprites.begin() + counter);
-		
+
 		if(sprite.savePoint)
                 {
                     sf::Vector2f temp = sprite.getPosition();
@@ -56,13 +56,13 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
 	// check if proposed x movement will cause collision
         player.move(x, 0);
-        
+
         bool hit = false;
 	int counter = 0;
         for (auto const &sprite: sprites)
         {
             sf::FloatRect boxHitBox = sprite.getGlobalBounds();
- 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();
 
             while (playerHitBox.intersects(boxHitBox))
             {
@@ -72,7 +72,7 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
                 if(sprite.breakable == true)
                     sprites.erase(sprites.begin() + counter);
-		
+
 		if(sprite.savePoint)
                 {
                     sf::Vector2f temp = sprite.getPosition();
@@ -87,7 +87,7 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
         } // end right if
 
-        
+
 
 
 /********************************************************************************/
@@ -101,15 +101,15 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
 	// check if proposed y movement will cause collision
         player.move(0, y);
-        
+
         bool hit = false;
 	int counter = 0;
 	bool canjump = false;
         for (auto const &sprite: sprites)
         {
             sf::FloatRect boxHitBox = sprite.getGlobalBounds();
- 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
-	
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();
+
             while (playerHitBox.intersects(boxHitBox))
             {
                 canjump = true;
@@ -119,7 +119,7 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
                 if(sprite.breakable == true)
                     sprites.erase(sprites.begin() + counter);
-		
+
 		if(sprite.savePoint)
                 {
                     sf::Vector2f temp = sprite.getPosition();
@@ -141,7 +141,7 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
                    vertSpeed = speed*1000; // set initial velocity for the jump
 		   y -= gravity;
                 }
-	
+
         if (vertSpeed > 0)
         {
             vertSpeed -= vertSpeed / 1.5; // smaller the division the more 'steps' in the jump (smoother)
@@ -163,8 +163,8 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
         for (auto const &sprite: sprites)
         {
             sf::FloatRect boxHitBox = sprite.getGlobalBounds();
- 	    sf::FloatRect playerHitBox = player.getGlobalBounds();	    
-	
+ 	    sf::FloatRect playerHitBox = player.getGlobalBounds();
+
             while (playerHitBox.intersects(boxHitBox))
             {
 		hit = true;
@@ -173,7 +173,7 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
 
                 if(sprite.breakable == true)
                     sprites.erase(sprites.begin() + counter);
-		
+
 		if(sprite.savePoint)
                 {
                     sf::Vector2f temp = sprite.getPosition();

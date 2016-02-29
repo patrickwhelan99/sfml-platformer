@@ -3,7 +3,7 @@
 #include <fstream>
 
 // Function is run inside loop so updates every frame
-void play(bool &init, std::string levelName, std::vector<block> &sprites, std::vector<sf::Texture> &textures, sf::Vector2f &levelStart, sf::Vector2f &lastCheckpoint, sf::Vector2f &levelFinish, sf::Sprite &player, sf::View &camera, float &jumpSpeed)
+void play(bool &init, std::string levelName, std::vector<block> &sprites, std::vector<sf::Texture> &textures, sf::Vector2f &levelStart, sf::Vector2f &lastCheckpoint, sf::Vector2f &levelFinish, sf::Sprite &player, sf::View &camera, float &jumpSpeed, cfg config)
 {
     if(!init)
     {
@@ -26,7 +26,7 @@ void play(bool &init, std::string levelName, std::vector<block> &sprites, std::v
     }
 
     //update player movement
-    sf::Vector2f playerVector = movement(player, sprites, playerVector, jumpSpeed, lastCheckpoint);
+    sf::Vector2f playerVector = movement(player, sprites, playerVector, jumpSpeed, lastCheckpoint, config);
     //player.move(playerVector);
 
 }

@@ -10,8 +10,10 @@
 
 int main()
 {
+    cfg config = load_cfg();
+
     // Defining window
-    sf::RenderWindow app(sf::VideoMode(1920, 1080), "SFML window");
+    sf::RenderWindow app(sf::VideoMode(config.xres, config.yres), "SFML window");
     app.setKeyRepeatEnabled(false);
 
     //define textures
@@ -201,7 +203,7 @@ int main()
 
         if(modePlay)
         {
-            play(init, "savegame", sprites, textures, levelStart, lastCheckpoint, levelFinish, player, camera, jumpSpeed); // ADD SMOOTH EXIT FROM LEVELS AND RESET INIT BOOL
+            play(init, "savegame", sprites, textures, levelStart, lastCheckpoint, levelFinish, player, camera, jumpSpeed, config); // ADD SMOOTH EXIT FROM LEVELS AND RESET INIT BOOL
             update_view(app, camera, sprites, player);
         }
 
