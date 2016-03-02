@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vector2f playerVector, float &vertSpeed, sf::Vector2f &lastCheckpoint, cfg config)
+movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vector2f playerVector, float &vertSpeed, sf::Vector2f &lastCheckpoint, cfg config)
 {
         const float speed = 0.15 * config.speed;
         const float gravity = 0.05 * config.gravity;
@@ -187,7 +187,4 @@ sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vecto
             }
         }
 
-    playerVector = {x, y};
-
-return playerVector;
 }
