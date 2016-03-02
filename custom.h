@@ -33,7 +33,7 @@ class cfg
 
 void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> sprites, sf::Sprite player);
 sf::View create_camera(sf::Sprite player);
-sf::Vector2f movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vector2f playerVector, float &vertSpeed, sf::Vector2f &lastCheckpoint, cfg config);
+void movement(sf::Sprite &player, std::vector<block> &sprites, sf::Vector2f playerVector, float &vertSpeed, sf::Vector2f &lastCheckpoint, cfg config);
 void create_block(sf::RenderWindow &app, std::vector<block> &sprites, sf::View &camera, bool deadly, bool start, bool checkpoint, bool finish, bool breakable, std::vector<sf::Texture> &textures, int &texturePos);
 void destroy_block(std::vector<block> &sprites);
 void respawn(sf::Sprite &player, sf::Vector2f lastCheckpoint);
