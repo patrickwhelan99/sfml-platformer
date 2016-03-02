@@ -26,7 +26,6 @@ void play(bool &init, std::string levelName, std::vector<block> &sprites, std::v
     }
 
     //update player movement
-    sf::Vector2f playerVector = movement(player, sprites, playerVector, jumpSpeed, lastCheckpoint, config);
-    //player.move(playerVector);
+    movement(player, sprites, playerVector, jumpSpeed, lastCheckpoint, config);
 
 }
