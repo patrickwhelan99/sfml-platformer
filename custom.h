@@ -42,7 +42,6 @@ void load_save(std::vector<block> &newVector, std::vector<sf::Texture> &textures
 void texture_init(std::vector<sf::Texture> &textures);
 void play(bool &init, std::string levelName, std::vector<block> &sprites, std::vector<sf::Texture> &textures, sf::Vector2f &levelStart, sf::Vector2f &lastCheckpoint, sf::Vector2f &levelFinish, sf::Sprite &player, sf::View &camera, float &jumpSpeed, cfg config);
 void create(std::vector<block> &sprites, std::vector<sf::Texture> &textures, sf::Sprite &player, sf::RenderWindow &app, sf::View &camera, block &ghost, int &texturePos, sf::Font &font, bool deadly, bool start, bool checkpoint, bool finish, bool breakable);
-void initialize(sf::Sprite &player, sf::View camera, std::vector<block> &sprites);
 cfg load_cfg();
 
 
