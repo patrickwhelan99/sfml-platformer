@@ -25,6 +25,7 @@ int main()
     spriteTexture.loadFromFile("../../textures/red_box.png");
     sf::Sprite player(spriteTexture);
     float jumpSpeed = 0;
+    player.move(0, -100);
 
     // vector containing all block sprites
     std::vector<block> sprites;
@@ -54,7 +55,6 @@ int main()
     font.loadFromFile("../../fonts/DroidSans.ttf");
 
 
-    initialize(player, camera, sprites);
 
 	// Start the game loop
     while (app.isOpen())
