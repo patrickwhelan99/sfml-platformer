@@ -1,9 +1,10 @@
 #include "custom.h"
 #include <string>
 #include <fstream>
+#include "Player.h"
 
 // Function is run inside loop so updates every frame
-void play(bool &init, std::string levelName, std::vector<block> &sprites, std::vector<sf::Texture> &textures, sf::Vector2f &levelStart, sf::Vector2f &lastCheckpoint, sf::Vector2f &levelFinish, sf::Sprite &player, sf::View &camera, float &jumpSpeed, cfg config)
+void play(bool &init, std::string levelName, std::vector<block> &sprites, std::vector<sf::Texture> &textures, sf::Vector2f &levelStart, sf::Vector2f &lastCheckpoint, sf::Vector2f &levelFinish, Player &player, sf::View &camera, cfg config)
 {
     if(!init)
     {
@@ -25,7 +26,8 @@ void play(bool &init, std::string levelName, std::vector<block> &sprites, std::v
             }
     }
 
+
     //update player movement
-    movement(player, sprites, playerVector, jumpSpeed, lastCheckpoint, config);
+    movement(player, sprites, lastCheckpoint, config);
 
 }

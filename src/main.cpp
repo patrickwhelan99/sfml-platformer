@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "custom.h"
-
+#include "Player.h"
 
 
 int main()
@@ -22,10 +22,8 @@ int main()
 
     // Define player
     sf::Texture spriteTexture;
-    spriteTexture.loadFromFile("../../textures/red_box.png");
-    sf::Sprite player(spriteTexture);
-    float jumpSpeed = 0;
-    player.move(0, -100);
+    spriteTexture.loadFromFile("textures/red_box.png");
+    Player player(spriteTexture);
 
     // vector containing all block sprites
     std::vector<block> sprites;
@@ -52,7 +50,7 @@ int main()
     int texturePos = 0;
 
     sf::Font font;
-    font.loadFromFile("../../fonts/DroidSans.ttf");
+    font.loadFromFile("fonts/DroidSans.ttf");
 
 
 
@@ -193,9 +191,8 @@ int main()
 
         if(loadSave)
         {
-            std::vector<block> newVector;
-            load_save(newVector, textures, levelStart, levelFinish);
-            sprites = newVector;
+            std::vector<block> sprites;
+            load_save(sprites, textures, levelStart, levelFinish);
             player.setPosition(levelStart);
         }
 
@@ -203,7 +200,7 @@ int main()
 
         if(modePlay)
         {
-            play(init, "savegame", sprites, textures, levelStart, lastCheckpoint, levelFinish, player, camera, jumpSpeed, config); // ADD SMOOTH EXIT FROM LEVELS AND RESET INIT BOOL
+            play(init, "savegame", sprites, textures, levelStart, lastCheckpoint, levelFinish, player, camera, config); // ADD SMOOTH EXIT FROM LEVELS AND RESET INIT BOOL
             update_view(app, camera, sprites, player);
         }
 
