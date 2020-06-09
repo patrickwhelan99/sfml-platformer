@@ -1,11 +1,11 @@
 #include "custom.h"
 
-block::block()
+block::block(blockProperties bp, sf::Texture &texture, sf::Vector2f position)
 {
-    sf::Texture whiteBox;
-    whiteBox.loadFromFile("textures/white_box.png");
-
-    this->setTexture(whiteBox);
+    this->setOrigin(40, 40);
+    this->setTexture(texture);
+    this->bp = bp;
+    this->setPosition(position);
 }
 
 block::~block()

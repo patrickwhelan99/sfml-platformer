@@ -4,18 +4,16 @@
 #ifndef UPDATE_VIEW_CPP_INCLUDED
 #define UPDATE_VIEW_CPP_INCLUDED
 
-    using namespace std;
-
-void update_view(sf::RenderWindow &app, sf::View &camera, vector<block> sprites, sf::Sprite player)
+void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, sf::Sprite &player)
 {
     app.clear();
 
     //camera.setCenter(player.getPosition().x, player.getPosition().y);
     //app.setView(camera);
 
-    for (auto const &sprite: sprites)
+    for (auto const &block: blocks)
     {
-        app.draw(sprite);
+        app.draw(block);
     }
 
     app.draw(player);

@@ -6,6 +6,7 @@
 
 #include "custom.h"
 #include "Player.h"
+#include "gameState.h"
 
 
 int main()
@@ -16,42 +17,27 @@ int main()
     sf::RenderWindow app(sf::VideoMode(config.xres, config.yres), "SFML window");
     app.setKeyRepeatEnabled(false);
 
-    //define textures
     std::vector<sf::Texture> textures;
-    texture_init(textures);
+    gameState gameState(&textures);
+
+    texture_init(*(gameState.textures));
 
     // Define player
     sf::Texture spriteTexture;
     spriteTexture.loadFromFile("textures/red_box.png");
     Player player(spriteTexture);
 
-    // vector containing all block sprites
-    std::vector<block> sprites;
 
     // define camera
     sf::View camera = create_camera(player);
-    update_view(app, camera, sprites, player);
+    update_view(app, camera, gameState.blocks, player);
 
 
-    sf::Vector2f levelStart;
-    sf::Vector2f levelFinish;
-    sf::Vector2f lastCheckpoint;
-
-    bool deadly = false; // toggleable for placing deadly blocks
-    bool start;
-    bool checkpoint;
-    bool finish;
-    bool breakable;
-
-    bool modePlay = false;
-    bool init = false; // check if level loaded in getplay
-    bool modeCreate = false;
 
     int texturePos = 0;
 
     sf::Font font;
     font.loadFromFile("fonts/DroidSans.ttf");
-
 
 
 	// Start the game loop
@@ -67,7 +53,7 @@ int main()
         bool loadSave = false;
 
 
-        block ghost;
+        block ghost(gameState.bp, gameState.textures->at(0), sf::Vector2f(0, 0));
         ghost.setOrigin(40, 40);
 
 
@@ -79,134 +65,18 @@ int main()
                 app.close();
             }
 
-            switch (event.type) //check for mouse release. Otherwise we end up detecting 20 clicks and deleting everything!
-            {
-                case sf::Event::MouseButtonReleased:
-                     if (event.mouseButton.button == sf::Mouse::Left)
-                     {
-                        leftMouseClicked = true;
-                        break;
-                     }
-                     if (event.mouseButton.button == sf::Mouse::Right)
-                     {
-                        rightMouseClicked = true;
-                        break;
-                     }
-                    break;
-
-                case sf::Event::KeyReleased:
-                    if(event.key.code == sf::Keyboard::F1)
-                        {
-                            if(!deadly)
-                                deadly = true;
-                            else
-                                deadly = false;
-                            break;
-                        }
-
-                        if(event.key.code == sf::Keyboard::F2)
-                        {
-                            if(!start)
-                                start = true;
-                            else
-                                start = false;
-                            break;
-                        }
-
-                        if(event.key.code == sf::Keyboard::F3)
-                        {
-                            if(!checkpoint)
-                                checkpoint = true;
-                            else
-                                checkpoint = false;
-                            break;
-                        }
-
-                        if(event.key.code == sf::Keyboard::F4)
-                        {
-                            if(!finish)
-                                finish = true;
-                            else
-                                finish = false;
-                            break;
-                        }
-
-                        if(event.key.code == sf::Keyboard::F5)
-                        {
-                            if(!breakable)
-                                breakable = true;
-                            else
-                                breakable = false;
-                            break;
-                        }
-
-                        if(event.key.code == sf::Keyboard::F6)
-                            loadSave = true;
-
-                        if(event.key.code == sf::Keyboard::F7)
-                            saveGame = true;
-
-                        if(event.key.code == sf::Keyboard::F8)
-                        {
-                            modeCreate = false;
-                            modePlay = true;
-                        }
-
-                        if(event.key.code == sf::Keyboard::F9)
-                        {
-                            modePlay = false;
-                            modeCreate = true;
-                        }
-
-                        if(event.key.code == sf::Keyboard::E && modeCreate)
-                        {
-                            texturePos += 1;
-                                if (texturePos > textures.size() - 1)
-                                    texturePos =  0;
-                        }
-
-                        if(event.key.code == sf::Keyboard::Q && modeCreate)
-                        {
-                            texturePos -= 1;
-                                if (texturePos < 0)
-                                    texturePos = textures.size() - 1;
-                        }
-                        break;
-
-                default:
-                    break;
-
-            }
+            handleInput(app, camera, event, player, &gameState);
 
         }
-
-        if(leftMouseClicked && modeCreate)
-            create_block(app, sprites, camera, deadly, start, checkpoint, finish, breakable, textures, texturePos);
-
-        if(rightMouseClicked && modeCreate)
-            destroy_block(sprites);
-
-        if(saveGame && modeCreate)
-            save_game(sprites);
-
-        if(loadSave)
+        if(gameState.gamemode == Gamemode::playing)
         {
-            std::vector<block> sprites;
-            load_save(sprites, textures, levelStart, levelFinish);
-            player.setPosition(levelStart);
+            play(init, gameState, player, camera, config);
+            update_view(app, camera, gameState.blocks, player);
         }
 
-        sf::Sprite backGround;
-
-        if(modePlay)
+        if(gameState.gamemode == Gamemode::creative)
         {
-            play(init, "savegame", sprites, textures, levelStart, lastCheckpoint, levelFinish, player, camera, config); // ADD SMOOTH EXIT FROM LEVELS AND RESET INIT BOOL
-            update_view(app, camera, sprites, player);
-        }
-
-        if(modeCreate)
-        {
-            create(sprites, textures, player, app, camera, ghost, texturePos, font, deadly, start, checkpoint, finish, breakable);
+            create(gameState, player, app, camera, ghost, font);
         }
 
 

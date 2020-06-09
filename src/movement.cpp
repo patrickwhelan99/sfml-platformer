@@ -91,6 +91,7 @@ void movement(Player &player, std::vector<block> &sprites, sf::Vector2f &lastChe
         while (playerHitBox.intersects(boxHitBox))
         {
             hit = true;
+            /*
             if(sprite.deadly == true)
                 respawn(player, lastCheckpoint);
 
@@ -103,7 +104,7 @@ void movement(Player &player, std::vector<block> &sprites, sf::Vector2f &lastChe
                 temp.y -= 50;
                 lastCheckpoint = temp;
             }
-
+            */
             if(hit)
             {
                 player.setPosition(previousPosition.x, player.getPosition().y);
@@ -146,6 +147,7 @@ void movement(Player &player, std::vector<block> &sprites, sf::Vector2f &lastChe
         if(playerHitBox.intersects(boxHitBox))
         {
             hit = true;
+            /*
             if(sprite.deadly == true)
                 respawn(player, lastCheckpoint);
 
@@ -158,7 +160,7 @@ void movement(Player &player, std::vector<block> &sprites, sf::Vector2f &lastChe
                 temp.y -= 50;
                 lastCheckpoint = temp;
             }
-
+            */
             player.setPosition(player.getPosition().x, previousPosition.y);
             playerHitBox = player.getGlobalBounds();
             player.setVelocity(sf::Vector2f(player.getVelocity().x, 0));

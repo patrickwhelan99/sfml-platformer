@@ -1,12 +1,14 @@
-#include "custom.h"
+#include "block.h"
+#include "gameState.h"
 #include <vector>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <cstring>
+#include <SFML/Graphics.hpp>
 
-void load_save(std::vector<block> &newVector, std::vector<sf::Texture> &textures, sf::Vector2f &levelStart, sf::Vector2f &levelFinish)
+void load_save(gameState &gs)
 {
     std::string line;
     std::string xStr;
@@ -24,11 +26,13 @@ void load_save(std::vector<block> &newVector, std::vector<sf::Texture> &textures
 
     if (loadSave.is_open())
     {
-
             while ( std::getline (loadSave,line) )
             {
                 std::istringstream stream(line);
                 std::string thing;
+
+                blockProperties bp;
+
                 int counter = 0;
                     while(getline(stream, thing, ','))
                     {
@@ -72,43 +76,32 @@ void load_save(std::vector<block> &newVector, std::vector<sf::Texture> &textures
                     }
 
                 sf::Vector2f blockPos = {atof(xStr.c_str()), atof(yStr.c_str())};
-                bool deadly = atoi(deadlyStr.c_str());
-                bool startPoint = atoi(startStr.c_str());
-                bool savePoint = atoi(saveStr.c_str());
-                bool finishPoint = atoi(finishStr.c_str());
-                bool breakable = atoi(breakableStr.c_str());
-                int texture = atoi(textureStr.c_str());
+                bp.isDeadly = atoi(deadlyStr.c_str());
+                bp.isStart = atoi(startStr.c_str());
+                bp.isCheckpoint = atoi(saveStr.c_str());
+                bp.isFinish = atoi(finishStr.c_str());
+                bp.isBreakable = atoi(breakableStr.c_str());
+                bp.textureIndex = atoi(textureStr.c_str());
 
 
-                if(startPoint)
+                if(bp.isStart)
                 {
-                    sf::Vector2f tempLevelStart = blockPos;
-                    tempLevelStart.y -= 50;
-                    levelStart = tempLevelStart;
+                    gs.lp.levelStart = sf::Vector2f(blockPos.x, blockPos.y - 50);
+                    gs.lp.currentCheckpoint = sf::Vector2f(blockPos.x, blockPos.y - 50);
                 }
 
-                if(finishPoint)
-                    levelFinish = blockPos;
+                if(bp.isCheckpoint)
+                {
+                    gs.lp.currentCheckpoint = sf::Vector2f(blockPos.x, blockPos.y - 50);
+                }
 
+                if(bp.isFinish)
+                {
+                    gs.lp.levelEnd = sf::Vector2f(blockPos.x, blockPos.y - 50);
+                }
 
-
-                block newBlock;
-                newBlock.setPosition(blockPos);
-                newBlock.deadly = deadly;
-                newBlock.startPoint = startPoint;
-                newBlock.savePoint = savePoint;
-                newBlock.finishPoint = finishPoint;
-                newBlock.breakable = breakable;
-                newBlock.texture = texture;
-                newBlock.setTexture(textures.at(texture));
-
-                /*
-                if (deadly)
-                    newBlock.setTexture(textures.at(2));
-                else
-                    newBlock.setTexture(textures.at(1));
-                */
-                newVector.push_back(newBlock);
+                block newBlock(bp, gs.textures->at(bp.textureIndex), blockPos);
+                gs.blocks.push_back(newBlock);
 
             }
 

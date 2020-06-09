@@ -2,17 +2,20 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "rapidjson/rapidjson.h"
 
-void save_game(std::vector<block> &sprites)
+void save_game(std::vector<block> &blocks)
 {
+
+
 
     std::ofstream saveGameFile;
     saveGameFile.open("savegame");
 
-    for (auto const& sprite: sprites)
+    for (block &block: blocks)
     {
-        sf::Vector2f spritePos = sprite.getPosition();
-        saveGameFile << spritePos.x << "," << spritePos.y << "," << sprite.deadly << "," << sprite.startPoint << "," << sprite.savePoint << "," << sprite.finishPoint << "," << sprite.breakable << "," << sprite.texture << std::endl;
+        sf::Vector2f blockPos = block.getPosition();
+        saveGameFile << blockPos.x << "," << blockPos.y << "," << block.bp.isDeadly << "," << block.bp.isStart << "," << block.bp.isCheckpoint << "," << block.bp.isFinish << "," << block.bp.isBreakable << "," << block.bp.textureIndex << std::endl;
     }
 
         saveGameFile.close();

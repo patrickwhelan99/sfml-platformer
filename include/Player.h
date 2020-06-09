@@ -5,10 +5,17 @@
 #include <SFML/System/Clock.hpp>
 
 
+
 class Player : public sf::Sprite
 {
 
     using Sprite::Sprite;
+
+    private:
+        sf::Vector2f velocity;
+
+
+
 
 
     public:
@@ -21,13 +28,13 @@ class Player : public sf::Sprite
         sf::Clock fallingClock;
 
         sf::Vector2f getVelocity(){return this->velocity;};
-        sf::Vector2f addVelocity(sf::Vector2f vel){this->velocity += vel;};
-        sf::Vector2f setVelocity(sf::Vector2f vel){this->velocity = vel;};
+        void addVelocity(sf::Vector2f vel){this->velocity += vel;};
+        void setVelocity(sf::Vector2f vel){this->velocity = vel;};
+
 
     protected:
 
-    private:
-        sf::Vector2f velocity;
+
 
 };
 
