@@ -47,12 +47,6 @@ int main()
         sf::Event event;
 
 
-        bool leftMouseClicked = false;
-        bool rightMouseClicked = false;
-        bool saveGame = false;
-        bool loadSave = false;
-
-
         block ghost(gameState.bp, gameState.textures->at(0), sf::Vector2f(0, 0));
         ghost.setOrigin(40, 40);
 
@@ -70,7 +64,7 @@ int main()
         }
         if(gameState.gamemode == Gamemode::playing)
         {
-            play(init, gameState, player, camera, config);
+            play(gameState, player, camera, config);
             update_view(app, camera, gameState.blocks, player);
         }
 

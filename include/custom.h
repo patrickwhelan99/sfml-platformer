@@ -34,12 +34,12 @@ void respawn(sf::Sprite &player, sf::Vector2f lastCheckpoint);
 void save_game(std::vector<block> &sprites);
 void load_save(gameState &gs);
 void texture_init(std::vector<sf::Texture> &textures);
-void play(bool &init, gameState &gs, Player &player, sf::View &camera, cfg config);
+void play(gameState &gs, Player &player, sf::View &camera, cfg config);
 void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &camera, block &ghost, sf::Font &font);
 cfg load_cfg();
 
 
-void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player p, gameState *gs);
+void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player &p, gameState *gs);
 
 
 #endif // CUSTOM_H_INCLUDED

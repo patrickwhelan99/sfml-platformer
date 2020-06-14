@@ -3,7 +3,7 @@
 #include "custom.h"
 #include <SFML/Graphics.hpp>
 
-void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player p, gameState *gs)
+void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player &player, gameState *gs)
 {
 
     switch (event.type) //check for mouse release. Otherwise we end up detecting 20 clicks and deleting everything!
@@ -56,16 +56,18 @@ void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player
                 gs->bp.isBreakable = !gs->bp.isBreakable;
                 break;
             }
-/*
+
             if(event.key.code == sf::Keyboard::F6)
             {
-                load_save(gs->blocks, gs->textures, levelStart, levelFinish);
-                player.setPosition(levelStart);
+                load_save(*gs);
+                player.setPosition(gs->lp.currentCheckpoint);
             }
 
             if(event.key.code == sf::Keyboard::F7)
-                saveGame = true;
-*/
+            {
+                save_game(gs->blocks);
+            }
+
             if(event.key.code == sf::Keyboard::F8)
             {
                 gs->gamemode = Gamemode::playing;
