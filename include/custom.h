@@ -9,9 +9,9 @@
 
 
 
-void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, sf::Sprite &player);
+void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, std::vector<Entity*> &entities);
 sf::View create_camera(sf::Sprite player);
-void movement(Player &player, std::vector<block> &sprites, sf::Vector2f &lastCheckpoint, cfg config);
+//void movement(Player &player, std::vector<block> &sprites, sf::Vector2f &lastCheckpoint, cfg config);
 void create_block(sf::RenderWindow &app, sf::View &camera, gameState *gs);
 void destroy_block(std::vector<block> &sprites);
 void respawn(sf::Sprite &player, sf::Vector2f lastCheckpoint);

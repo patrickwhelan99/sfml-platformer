@@ -25,8 +25,9 @@ class Entity : public sf::Sprite
         Entity();
         virtual ~Entity();
 
-        void doMovement(std::vector<block> &sprites, cfg config);
+        void doMovement(std::vector<block> &blocks, cfg config);
 
+        bool acceptsInput = false;
         bool canJump = false;
         bool isFalling = false;
 

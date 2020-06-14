@@ -40,7 +40,12 @@ void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &
     {
         app.draw(blocks);
     }
-    app.draw(player);
+
+    for(Entity* &e : gs.entities)
+    {
+        app.draw(*e);
+    }
+
     app.draw(ghost);
     text.setPosition(app.mapPixelToCoords({0, 50}, camera));
     app.draw(text); // Draw text last so in foreground

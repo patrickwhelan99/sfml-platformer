@@ -9,4 +9,3 @@ walker::~walker()
 {
     //dtor
 }
-

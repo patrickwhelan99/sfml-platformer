@@ -4,19 +4,30 @@
 #ifndef UPDATE_VIEW_CPP_INCLUDED
 #define UPDATE_VIEW_CPP_INCLUDED
 
-void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, sf::Sprite &player)
+void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, std::vector<Entity*> &entities)
 {
     app.clear();
 
-    camera.setCenter(player.getPosition().x, player.getPosition().y);
-    app.setView(camera);
 
-    for (auto const &block: blocks)
+
+
+
+    for (block &block: blocks)
     {
         app.draw(block);
     }
 
-    app.draw(player);
+    for (Entity* &entity: entities)
+    {
+        app.draw(*entity);
+        printf("%f, %f\n", entity->getPosition().x, entity->getPosition().y);
+
+        if(entity->acceptsInput)
+        {
+            camera.setCenter(entity->getPosition().x, entity->getPosition().y);
+            app.setView(camera);
+        }
+    }
 
     app.display();
 

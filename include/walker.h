@@ -11,7 +11,7 @@ class walker : public enemy
         walker();
         virtual ~walker();
 
-        Direction currentDirection;
+        Direction currentDirection = Direction::right;
 
 
     protected:

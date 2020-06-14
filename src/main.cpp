@@ -6,6 +6,7 @@
 
 #include "custom.h"
 #include "Player.h"
+#include "walker.h"
 #include "gameState.h"
 
 
@@ -28,11 +29,15 @@ int main()
     Player player;
     player.setTexture(spriteTexture);
 
+    walker walk;
+    walk.setTexture(gameState.textures->at(0));
+
     gameState.entities.push_back(&player);
+    gameState.entities.push_back(&walk);
 
     // define camera
     sf::View camera = create_camera(player);
-    update_view(app, camera, gameState.blocks, player);
+    update_view(app, camera, gameState.blocks, gameState.entities);
 
 
 
@@ -67,7 +72,7 @@ int main()
         if(gameState.gamemode == Gamemode::playing)
         {
             play(&gameState, player, camera, config);
-            update_view(app, camera, gameState.blocks, player);
+            update_view(app, camera, gameState.blocks, gameState.entities);
         }
 
         if(gameState.gamemode == Gamemode::creative)
