@@ -40,6 +40,7 @@ cfg load_cfg();
 
 
 void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player &p, gameState *gs);
+sf::Vector2f getClosestSnappingPoint(sf::Vector2f currentPosition, gameState *gs);
 
 
 #endif // CUSTOM_H_INCLUDED

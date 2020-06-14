@@ -2,6 +2,7 @@
 
 #include <string>
 
+
 void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &camera, block &ghost, sf::Font &font)
 {
     app.clear();
@@ -23,7 +24,13 @@ void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &
     sf::Vector2i badMouse = {sf::Mouse::getPosition(app).x, sf::Mouse::getPosition(app).y};
     sf::Vector2f mouse = app.mapPixelToCoords(badMouse, camera); // Get coords for the special view (camera following character)
 
-    ghost.setPosition(mouse);
+
+    if(gs.creativeSettings.isPositionSnapping)
+        ghost.setPosition(getClosestSnappingPoint(mouse, &gs));
+    else
+        ghost.setPosition(mouse);
+
+
     ghost.setTexture(gs.textures->at(gs.bp.textureIndex));
 
 
@@ -40,34 +47,34 @@ void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &
     app.display();
 
 
-        /*   MOVEMENT   */
+    /*   MOVEMENT   */
 
 
-        const float speed = 0.15;
-        float x = 0;
-        float y = 0;
-        sf::Vector2f movementVector;
+    const float speed = 0.15;
+    float x = 0;
+    float y = 0;
+    sf::Vector2f movementVector;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {
-            x -= speed;
-        }
+    {
+        x -= speed;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        {
-            x += speed;
-        }
+    {
+        x += speed;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        {
-            y -= speed;
-        }
+    {
+        y -= speed;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        {
-            y += speed;
-        }
+    {
+        y += speed;
+    }
 
-        movementVector = {x, y};
-        player.move(movementVector);
+    movementVector = {x, y};
+    player.move(movementVector);
 }

@@ -14,6 +14,7 @@ class gameState
     struct creativeModeStruct
     {
         bool isPositionSnapping = false;
+        float snappingSize = 50;
         int textureIndex = 0;
     };
 

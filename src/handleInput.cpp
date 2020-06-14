@@ -92,7 +92,7 @@ void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player
                     gs->bp.textureIndex = gs->textures->size() - 1;
             }
 
-            if(event.key.code == sf::Keyboard::S && gs->gamemode == Gamemode::creative)
+            if(event.key.code == sf::Keyboard::S && event.key.shift && gs->gamemode == Gamemode::creative)
             {
                 gs->creativeSettings.isPositionSnapping = !gs->creativeSettings.isPositionSnapping;
             }
