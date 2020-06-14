@@ -7,23 +7,7 @@
 #define CUSTOM_H_INCLUDED
 
 
-class cfg
-{
-    public:
-        cfg();
-        virtual ~cfg();
-        int xres;
-        int yres;
-        float gravity;
-        float speed;
-        double maxHorizontalMovement;
-        double maxVerticalMovement;
-        float terminalVelocity;
-        float terminalHorizontalVelocity;
 
-    protected:
-    private:
-};
 
 void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, sf::Sprite &player);
 sf::View create_camera(sf::Sprite player);
@@ -34,7 +18,7 @@ void respawn(sf::Sprite &player, sf::Vector2f lastCheckpoint);
 void save_game(std::vector<block> &sprites);
 void load_save(gameState &gs);
 void texture_init(std::vector<sf::Texture> &textures);
-void play(gameState &gs, Player &player, sf::View &camera, cfg config);
+void play(gameState *gs, Player &player, sf::View &camera, cfg config);
 void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &camera, block &ghost, sf::Font &font);
 cfg load_cfg();
 

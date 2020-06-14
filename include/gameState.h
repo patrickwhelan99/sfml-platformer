@@ -2,6 +2,7 @@
 #define GAMESTATE_H
 
 #include "block.h"
+#include "Entity.h"
 #include <vector>
 #include <string>
 
@@ -33,6 +34,7 @@ public:
     creativeModeStruct creativeSettings;
     Gamemode gamemode;
     std::vector<block> blocks;
+    std::vector<Entity*> entities;
     std::vector<sf::Texture>* textures;
 
 

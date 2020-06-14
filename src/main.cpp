@@ -25,8 +25,10 @@ int main()
     // Define player
     sf::Texture spriteTexture;
     spriteTexture.loadFromFile("textures/red_box.png");
-    Player player(spriteTexture);
+    Player player;
+    player.setTexture(spriteTexture);
 
+    gameState.entities.push_back(&player);
 
     // define camera
     sf::View camera = create_camera(player);
@@ -64,7 +66,7 @@ int main()
         }
         if(gameState.gamemode == Gamemode::playing)
         {
-            play(gameState, player, camera, config);
+            play(&gameState, player, camera, config);
             update_view(app, camera, gameState.blocks, player);
         }
 

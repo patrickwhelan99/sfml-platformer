@@ -4,15 +4,14 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Clock.hpp>
 
+#include "Entity.h"
 
 
-class Player : public sf::Sprite
+class Player : public Entity
 {
 
-    using Sprite::Sprite;
-
     private:
-        sf::Vector2f velocity;
+
 
 
 
@@ -22,14 +21,7 @@ class Player : public sf::Sprite
         Player();
         virtual ~Player();
 
-        bool canJump = false;
-        bool isFalling = false;
 
-        sf::Clock fallingClock;
-
-        sf::Vector2f getVelocity(){return this->velocity;};
-        void addVelocity(sf::Vector2f vel){this->velocity += vel;};
-        void setVelocity(sf::Vector2f vel){this->velocity = vel;};
 
 
     protected:

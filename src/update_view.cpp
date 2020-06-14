@@ -8,8 +8,8 @@ void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &bl
 {
     app.clear();
 
-    //camera.setCenter(player.getPosition().x, player.getPosition().y);
-    //app.setView(camera);
+    camera.setCenter(player.getPosition().x, player.getPosition().y);
+    app.setView(camera);
 
     for (auto const &block: blocks)
     {
