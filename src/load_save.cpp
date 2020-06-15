@@ -86,18 +86,18 @@ void load_save(gameState &gs)
 
                 if(bp.isStart)
                 {
-                    gs.lp.levelStart = sf::Vector2f(blockPos.x, blockPos.y - 50);
-                    gs.lp.currentCheckpoint = sf::Vector2f(blockPos.x, blockPos.y - 50);
+                    gs.lp.levelStart = sf::Vector2f(blockPos.x, blockPos.y - 150);
+                    gs.lp.currentCheckpoint = sf::Vector2f(blockPos.x, blockPos.y - 150);
                 }
 
                 if(bp.isCheckpoint)
                 {
-                    gs.lp.currentCheckpoint = sf::Vector2f(blockPos.x, blockPos.y - 50);
+                    gs.lp.currentCheckpoint = sf::Vector2f(blockPos.x, blockPos.y - 150);
                 }
 
                 if(bp.isFinish)
                 {
-                    gs.lp.levelEnd = sf::Vector2f(blockPos.x, blockPos.y - 50);
+                    gs.lp.levelEnd = sf::Vector2f(blockPos.x, blockPos.y - 150);
                 }
 
                 block newBlock(bp, gs.textures->at(bp.textureIndex), blockPos);

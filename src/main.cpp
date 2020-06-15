@@ -21,6 +21,7 @@ int main()
     std::vector<sf::Texture> textures;
     gameState gameState(&textures);
 
+
     texture_init(*(gameState.textures));
 
     // Define player
@@ -32,8 +33,14 @@ int main()
     walker walk;
     walk.setTexture(gameState.textures->at(0));
 
+    walker walk2;
+    walk2.setTexture(gameState.textures->at(1));
+    walk2.currentDirection = Direction::left;
+
+    gameState.player = &player;
     gameState.entities.push_back(&player);
     gameState.entities.push_back(&walk);
+    gameState.entities.push_back(&walk2);
 
     // define camera
     sf::View camera = create_camera(player);

@@ -1,8 +1,12 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
+class Entity;
+class Player;
+
 #include "block.h"
 #include "Entity.h"
+#include "Player.h"
 #include <vector>
 #include <string>
 
@@ -29,10 +33,11 @@ class gameState
 
 
 public:
+    Player* player;
     blockProperties bp;
     levelProperties lp;
     creativeModeStruct creativeSettings;
-    Gamemode gamemode;
+    Gamemode gamemode = Gamemode::menu;
     std::vector<block> blocks;
     std::vector<Entity*> entities;
     std::vector<sf::Texture>* textures;

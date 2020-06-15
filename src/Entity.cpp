@@ -16,7 +16,7 @@ Entity::~Entity()
 
 }
 
-void Entity::doMovement(std::vector<block> &blocks, cfg config)
+void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config)
 {
     const float speed = .2 * config.speed;
     const float gravity = .2 * config.gravity;
@@ -37,18 +37,6 @@ void Entity::doMovement(std::vector<block> &blocks, cfg config)
         double t = this->fallingClock.getElapsedTime().asSeconds();
         double d = t*gravity;
         velocityChange += sf::Vector2f(0, d);
-    }
-
-    if(this->acceptsInput)
-    {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            velocityChange += sf::Vector2f(-speed, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->canJump)
-            velocityChange += sf::Vector2f(0, -speed*1000);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            velocityChange += sf::Vector2f(speed, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            velocityChange += sf::Vector2f(0, speed);
     }
 
     this->addVelocity(velocityChange);

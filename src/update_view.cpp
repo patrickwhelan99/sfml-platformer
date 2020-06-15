@@ -17,16 +17,13 @@ void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &bl
         app.draw(block);
     }
 
+    camera.setCenter(entities.front()->getPosition().x, entities.front()->getPosition().y);
+    app.setView(camera);
+
     for (Entity* &entity: entities)
     {
         app.draw(*entity);
         printf("%f, %f\n", entity->getPosition().x, entity->getPosition().y);
-
-        if(entity->acceptsInput)
-        {
-            camera.setCenter(entity->getPosition().x, entity->getPosition().y);
-            app.setView(camera);
-        }
     }
 
     app.display();

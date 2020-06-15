@@ -81,7 +81,7 @@ void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player
             if(event.key.code == sf::Keyboard::E && gs->gamemode == Gamemode::creative)
             {
                 gs->bp.textureIndex += 1;
-                if (gs->bp.textureIndex > gs->textures->size() - 1)
+                if (gs->bp.textureIndex > int(gs->textures->size() - 1))
                     gs->bp.textureIndex =  0;
             }
 

@@ -7,6 +7,7 @@
 #include "block.h"
 #include "cfg.h"
 
+
 #include <vector>
 
 class Entity : public sf::Sprite
@@ -16,6 +17,7 @@ class Entity : public sf::Sprite
 
     private:
         sf::Vector2f velocity;
+        bool isDead = false;
 
 
 
@@ -25,9 +27,9 @@ class Entity : public sf::Sprite
         Entity();
         virtual ~Entity();
 
-        void doMovement(std::vector<block> &blocks, cfg config);
+        virtual void doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config);
+        virtual void handleCollision(Entity* &collider, cfg &config){};
 
-        bool acceptsInput = false;
         bool canJump = false;
         bool isFalling = false;
 
@@ -36,6 +38,9 @@ class Entity : public sf::Sprite
         sf::Vector2f getVelocity(){return this->velocity;};
         void addVelocity(sf::Vector2f vel){this->velocity += vel;};
         void setVelocity(sf::Vector2f vel){this->velocity = vel;};
+
+        void setIsDead(bool dead){this->isDead = dead;};
+        bool getIsDead(){return this->isDead;};
 
 
     protected:

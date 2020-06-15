@@ -11,6 +11,9 @@ class walker : public enemy
         walker();
         virtual ~walker();
 
+        void doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config);
+        void handleCollision(Entity* &collider, cfg &config);
+
         Direction currentDirection = Direction::right;
 
 
