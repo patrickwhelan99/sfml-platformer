@@ -1,7 +1,7 @@
 #ifndef WALKER_H
 #define WALKER_H
 
-#include <enemy.h>
+#include "enemy.h"
 
 enum class Direction {left, right};
 

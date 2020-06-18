@@ -1,9 +1,9 @@
-#include "custom.h"
+#include "../include/custom.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
-#include "block.h"
-#include "gameState.h"
+#include "../include/block.h"
+#include "../include/gameState.h"
 
 void create_block(sf::RenderWindow &app, sf::View &camera, gameState *gs)
 {

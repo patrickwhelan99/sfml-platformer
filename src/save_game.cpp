@@ -1,8 +1,7 @@
-#include "custom.h"
+#include "../include/custom.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "rapidjson/rapidjson.h"
 
 void save_game(std::vector<block> &blocks)
 {

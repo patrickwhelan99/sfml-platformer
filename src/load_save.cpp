@@ -1,5 +1,5 @@
-#include "block.h"
-#include "gameState.h"
+#include "../include/block.h"
+#include "../include/gameState.h"
 #include <vector>
 #include <fstream>
 #include <iostream>

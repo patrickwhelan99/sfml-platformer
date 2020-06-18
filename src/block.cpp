@@ -1,4 +1,4 @@
-#include "custom.h"
+#include "../include/custom.h"
 
 block::block(blockProperties bp, sf::Texture &texture, sf::Vector2f position)
 {

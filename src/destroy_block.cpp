@@ -1,4 +1,4 @@
-#include "custom.h"
+#include "../include/custom.h"
 #include <vector>
 
 void destroy_block(std::vector<block> &sprites)

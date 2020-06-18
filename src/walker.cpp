@@ -1,5 +1,5 @@
-#include "walker.h"
-#include "Player.h"
+#include "../include/walker.h"
+#include "../include/Player.h"
 
 walker::walker()
 {

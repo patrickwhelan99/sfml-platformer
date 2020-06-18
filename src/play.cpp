@@ -1,8 +1,8 @@
-#include "custom.h"
+#include "../include/custom.h"
 #include <string>
 #include <fstream>
-#include "Player.h"
-#include "gameState.h"
+#include "../include/Player.h"
+#include "../include/gameState.h"
 
 // Function is run inside loop so updates every frame
 void play(gameState *gs, Player &player, sf::View &camera, cfg config)

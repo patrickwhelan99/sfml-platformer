@@ -1,4 +1,4 @@
-#include "gameState.h"
+#include "../include/gameState.h"
 
 gameState::gameState(std::vector<sf::Texture> *t)
 {

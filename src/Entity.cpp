@@ -1,6 +1,6 @@
-#include "Entity.h"
+#include "../include/Entity.h"
 
-#include "custom.h"
+#include "../include/custom.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 

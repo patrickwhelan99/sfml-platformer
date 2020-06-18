@@ -4,10 +4,10 @@
 
 #include <iostream>
 
-#include "custom.h"
-#include "Player.h"
-#include "walker.h"
-#include "gameState.h"
+#include "../include/custom.h"
+#include "../include/Player.h"
+#include "../include/walker.h"
+#include "../include/gameState.h"
 
 
 int main()
@@ -22,7 +22,7 @@ int main()
     gameState gameState(&textures);
 
 
-    texture_init(*(gameState.textures));
+    texture_init(*gameState.textures);
 
     // Define player
     sf::Texture spriteTexture;
@@ -32,10 +32,12 @@ int main()
 
     walker walk;
     walk.setTexture(gameState.textures->at(0));
+    walk.scale(sf::Vector2f(0.25, 0.25));
 
     walker walk2;
     walk2.setTexture(gameState.textures->at(1));
     walk2.currentDirection = Direction::left;
+    walk2.scale(sf::Vector2f(0.25, 0.25));
 
     gameState.player = &player;
     gameState.entities.push_back(&player);

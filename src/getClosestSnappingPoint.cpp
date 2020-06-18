@@ -1,6 +1,6 @@
 #include <SFML/Graphics/Transform.hpp>
 #include <cmath>
-#include "gameState.h"
+#include "../include/gameState.h"
 
 sf::Vector2f getClosestSnappingPoint(sf::Vector2f currentPosition, gameState *gs)
 {

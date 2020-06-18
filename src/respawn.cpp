@@ -1,4 +1,4 @@
-#include "custom.h"
+#include "../include/custom.h"
 
 void respawn(sf::Sprite &player, sf::Vector2f lastCheckpoint) // STUB add respawn points
 {

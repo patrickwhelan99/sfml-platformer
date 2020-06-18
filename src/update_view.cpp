@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "custom.h"
+#include "../include/custom.h"
 
 #ifndef UPDATE_VIEW_CPP_INCLUDED
 #define UPDATE_VIEW_CPP_INCLUDED

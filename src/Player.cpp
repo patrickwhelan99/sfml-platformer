@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "../include/Player.h"
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Event.hpp>
 
@@ -182,6 +182,9 @@ void Player::doMovement(std::vector<block> &blocks, std::vector<Entity*> entitie
             this->canJump = false;
             this->fallingClock.restart(); // Keep a falling clock so we can simulate acceleration over time till terminal velocity is reached
         }
+
+        if(this->getPosition().y > 2000)
+            this->death();
     }
 
     for(Entity* &e : entities)

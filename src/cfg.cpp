@@ -1,3 +1,3 @@
-#include "custom.h"
+#include "../include/cfg.h"
 cfg::cfg(){};
 cfg::~cfg(){};

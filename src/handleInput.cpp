@@ -1,6 +1,6 @@
-#include "Player.h"
-#include "gameState.h"
-#include "custom.h"
+#include "../include/Player.h"
+#include "../include/gameState.h"
+#include "../include/custom.h"
 #include <SFML/Graphics.hpp>
 
 void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player &player, gameState *gs)

@@ -2,7 +2,7 @@
 #ifndef CAMERA_CPP_INCLUDED
 #define CAMERA_CPP_INCLUDED
 
-#include "custom.h"
+#include "../include/custom.h"
 
 sf::View create_camera(sf::Sprite player)
 {

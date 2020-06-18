@@ -1,7 +1,7 @@
-#include "custom.h"
+#include "../include/custom.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Player.h"
+#include "../include/Player.h"
 #include <cmath>
 
 
