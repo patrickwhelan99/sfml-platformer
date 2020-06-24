@@ -18,7 +18,7 @@ void respawn(sf::Sprite &player, sf::Vector2f lastCheckpoint);
 void save_game(std::vector<block> &sprites);
 void load_save(gameState &gs);
 void texture_init(std::vector<sf::Texture> &textures);
-void play(gameState *gs, Player &player, sf::View &camera, cfg config);
+void play(gameState *gs, Player &player, sf::View &camera, cfg config, double deltaTime);
 void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &camera, block &ghost, sf::Font &font);
 cfg load_cfg();
 

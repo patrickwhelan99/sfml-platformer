@@ -18,9 +18,11 @@ game: $(obj)
 
 
 .PHONY: clean
-clean:
+
+clean: cleandep
 	rm -f $(obj) game
 
 .PHONY: cleandep
+
 cleandep:
 	rm -f $(dep)

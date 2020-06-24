@@ -16,6 +16,8 @@ class enemy : public Entity
         AIState GetcurrentState() { return currentState; }
         void SetcurrentState(AIState val) { currentState = val; }
 
+
+
     protected:
 
     private:

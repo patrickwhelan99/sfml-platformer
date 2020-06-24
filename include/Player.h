@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 #include "Entity.h"
 #include <vector>
@@ -23,10 +24,12 @@ class Player : public Entity
         Player();
         virtual ~Player();
 
-        void doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config);
+        void doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config, double deltaTime);
         void handleCollision(Entity* &collider, cfg &config){};
 
+
         void death();
+        void handleInput();
 
 
 

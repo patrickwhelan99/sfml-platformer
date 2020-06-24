@@ -27,8 +27,10 @@ class Entity : public sf::Sprite
         Entity();
         virtual ~Entity();
 
-        virtual void doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config);
-        virtual void handleCollision(Entity* &collider, cfg &config){};
+        virtual void doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config, double deltaTime);
+        virtual void handleCollision(bool xAxis, sf::Vector2f previousPosition, std::vector<block> &blocks, std::vector<Entity*> &entities, cfg &config);
+        virtual void handleEntityCollision(Entity* &collider);
+        virtual void handleBlockCollision(bool xAxis, block &collider);
 
         bool canJump = false;
         bool isFalling = false;

@@ -23,7 +23,6 @@ void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &bl
     for (Entity* &entity: entities)
     {
         app.draw(*entity);
-        printf("%f, %f\n", entity->getPosition().x, entity->getPosition().y);
     }
 
     app.display();

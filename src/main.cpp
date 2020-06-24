@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
+
 #include <vector>
 #include <fstream>
-
 #include <iostream>
 
 #include "../include/custom.h"
@@ -33,16 +34,11 @@ int main()
     walker walk;
     walk.setTexture(gameState.textures->at(0));
     walk.scale(sf::Vector2f(0.25, 0.25));
-
-    walker walk2;
-    walk2.setTexture(gameState.textures->at(1));
-    walk2.currentDirection = Direction::left;
-    walk2.scale(sf::Vector2f(0.25, 0.25));
+    walk.currentDirection = Direction::right;
 
     gameState.player = &player;
     gameState.entities.push_back(&player);
     gameState.entities.push_back(&walk);
-    gameState.entities.push_back(&walk2);
 
     // define camera
     sf::View camera = create_camera(player);
@@ -55,12 +51,16 @@ int main()
     sf::Font font;
     font.loadFromFile("fonts/DroidSans.ttf");
 
+    sf::Clock currentTime;
 
 	// Start the game loop
     while (app.isOpen())
     {
         // Process events
         sf::Event event;
+
+        double deltaTime = 3000 * currentTime.restart().asSeconds();
+
 
 
         block ghost(gameState.bp, gameState.textures->at(0), sf::Vector2f(0, 0));
@@ -80,7 +80,10 @@ int main()
         }
         if(gameState.gamemode == Gamemode::playing)
         {
-            play(&gameState, player, camera, config);
+
+            printf("%f, %f\n", walk.getPosition().x, walk.getPosition().y);
+
+            play(&gameState, player, camera, config, deltaTime);
             update_view(app, camera, gameState.blocks, gameState.entities);
         }
 

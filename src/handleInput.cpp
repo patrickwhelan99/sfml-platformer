@@ -27,6 +27,7 @@ void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player
 
 
         case sf::Event::KeyReleased:
+
             if(event.key.code == sf::Keyboard::F1)
             {
                 gs->bp.isDeadly = !gs->bp.isDeadly;
@@ -97,6 +98,8 @@ void handleInput(sf::RenderWindow &app, sf::View camera, sf::Event event, Player
                 gs->creativeSettings.isPositionSnapping = !gs->creativeSettings.isPositionSnapping;
             }
             break;
+
+
 
     default:
         break;

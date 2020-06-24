@@ -16,14 +16,14 @@ Entity::~Entity()
 
 }
 
-void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config)
+void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config, double deltaTime)
 {
-    const float speed = .2 * config.speed;
-    const float gravity = .2 * config.gravity;
-    const double maxHorizontalMovement = .1 * config.maxHorizontalMovement;
-    const double maxVerticalMovement = .1 * config.maxVerticalMovement;
-    const float terminalVelocity = 1 * config.terminalVelocity;
-    const float terminalHorizontalVelocity = 1 * config.terminalHorizontalVelocity;
+    const float speed = .2 * config.speed * deltaTime;
+    const float gravity = .2 * config.gravity * deltaTime;
+    const double maxHorizontalMovement = .1 * config.maxHorizontalMovement * deltaTime;
+    const double maxVerticalMovement = .1 * config.maxVerticalMovement * deltaTime;
+    const float terminalVelocity = 1 * config.terminalVelocity * deltaTime;
+    const float terminalHorizontalVelocity = 1 * config.terminalHorizontalVelocity * deltaTime;
 
 
     sf::Vector2f previousPosition = this->getPosition();
@@ -77,44 +77,12 @@ void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entitie
     }
     else
     {
-        this->move(this->getVelocity().x, 0);
+        this->move(this->getVelocity().x*deltaTime, 0);
         this->addVelocity(sf::Vector2f(-this->getVelocity().x, 0));
     }
 
 
-    bool hit = false;
-    int counter = 0;
-    for (auto const &block: blocks)
-    {
-        sf::FloatRect boxHitBox = block.getGlobalBounds();
-        sf::FloatRect entityHitBox = this->getGlobalBounds();
-
-        while (entityHitBox.intersects(boxHitBox))
-        {
-            hit = true;
-            /*
-            if(block.deadly == true)
-                respawn(player, lastCheckpoint);
-
-            if(block.breakable == true)
-                blocks.erase(blocks.begin() + counter);
-
-            if(block.savePoint)
-            {
-                sf::Vector2f temp = block.getPosition();
-                temp.y -= 50;
-                lastCheckpoint = temp;
-            }
-            */
-            if(hit)
-            {
-                this->setPosition(previousPosition.x, this->getPosition().y);
-                entityHitBox = this->getGlobalBounds();
-                this->setVelocity(sf::Vector2f(0, this->getVelocity().y));
-            }
-        }
-    }
-
+    this->handleCollision(true, previousPosition, blocks, entities, config);
 
 
 
@@ -134,37 +102,34 @@ void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entitie
     }
     else
     {
-        this->move(0, this->getVelocity().y);
+        this->move(0, this->getVelocity().y*deltaTime);
         this->addVelocity(sf::Vector2f(0, -this->getVelocity().y));
     }
 
-    hit = false;
-    counter = 0;
+    this->handleCollision(false, previousPosition, blocks, entities, config);
+
+
+}
+
+void Entity::handleCollision(bool xAxis, sf::Vector2f previousPosition, std::vector<block> &blocks, std::vector<Entity*> &entities, cfg &config)
+{
+    bool hit = false;
     for (block &block: blocks)
     {
         sf::FloatRect boxHitBox = block.getGlobalBounds();
-        sf::FloatRect entityHitBox = this->getGlobalBounds();
+        sf::FloatRect thisHitBox = this->getGlobalBounds();
 
-        if(entityHitBox.intersects(boxHitBox))
+        if(thisHitBox.intersects(boxHitBox))
         {
+            this->handleBlockCollision(xAxis, block);
             hit = true;
-            /*
-            if(block.deadly == true)
-                respawn(player, lastCheckpoint);
 
-            if(block.breakable == true)
-                blocks.erase(blocks.begin() + counter);
 
-            if(block.savePoint)
-            {
-                sf::Vector2f temp = block.getPosition();
-                temp.y -= 50;
-                lastCheckpoint = temp;
-            }
-            */
-            this->setPosition(this->getPosition().x, previousPosition.y);
-            entityHitBox = this->getGlobalBounds();
-            this->setVelocity(sf::Vector2f(this->getVelocity().x, 0));
+            if(xAxis)
+                this->setPosition(previousPosition.x, this->getPosition().y);
+            else
+                this->setPosition(this->getPosition().x, previousPosition.y);
+
             this->canJump = true;
             this->isFalling = false;
         }
@@ -177,6 +142,29 @@ void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entitie
             this->fallingClock.restart(); // Keep a falling clock so we can simulate acceleration over time till terminal velocity is reached
         }
     }
+
+    for(Entity* &e : entities)
+    {
+        sf::FloatRect entityHitBox = e->getGlobalBounds();
+        sf::FloatRect thisHitBox = this->getGlobalBounds();
+
+        if(thisHitBox.intersects(entityHitBox))
+        {
+            handleEntityCollision(e);
+        }
+
+    }
+
+
 }
 
+void Entity::handleBlockCollision(bool xAxis, block &collider)
+{
+
+}
+
+void Entity::handleEntityCollision(Entity* &collider)
+{
+
+}
 
