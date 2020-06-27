@@ -22,31 +22,33 @@ int main()
     std::vector<sf::Texture> textures;
     gameState gameState(&textures);
 
+    sf::Texture playerTexture;
+    playerTexture.loadFromFile("textures/red_box.png");
+
+    textures.push_back(playerTexture);
+
 
     texture_init(*gameState.textures);
 
-    // Define player
-    sf::Texture spriteTexture;
-    spriteTexture.loadFromFile("textures/red_box.png");
-    Player player;
-    player.setTexture(spriteTexture);
 
-    walker walk;
-    walk.setTexture(gameState.textures->at(0));
-    walk.scale(sf::Vector2f(0.25, 0.25));
-    walk.currentDirection = Direction::right;
 
-    gameState.player = &player;
-    gameState.entities.push_back(&player);
-    gameState.entities.push_back(&walk);
+
+
+    std::shared_ptr<walker> walk = std::make_shared<walker>();
+    walk->setTexture(gameState.textures->at(0));
+    walk->scale(sf::Vector2f(0.25, 0.25));
+    walk->currentDirection = Direction::right;
+
+    gameState.player = std::make_shared<Player>();
+    gameState.player->setTexture(gameState.textures->at(0));
+
+    gameState.entities.push_back(gameState.player);
+    gameState.entities.push_back(walk);
 
     // define camera
-    sf::View camera = create_camera(player);
+    sf::View camera = create_camera(*gameState.player);
     update_view(app, camera, gameState.blocks, gameState.entities);
 
-
-
-    int texturePos = 0;
 
     sf::Font font;
     font.loadFromFile("fonts/DroidSans.ttf");
@@ -63,7 +65,7 @@ int main()
 
 
 
-        block ghost(gameState.bp, gameState.textures->at(0), sf::Vector2f(0, 0));
+        block ghost(gameState.bp, gameState.textures->at(1), sf::Vector2f(0, 0));
         ghost.setOrigin(40, 40);
 
 
@@ -75,18 +77,18 @@ int main()
                 app.close();
             }
 
-            handleInput(app, camera, event, player, &gameState);
+            handleInput(app, camera, event, gameState.player, &gameState);
 
         }
         if(gameState.gamemode == Gamemode::playing)
         {
-            play(&gameState, player, camera, config, deltaTime);
+            play(&gameState, gameState.player, camera, config, deltaTime);
             update_view(app, camera, gameState.blocks, gameState.entities);
         }
 
         if(gameState.gamemode == Gamemode::creative)
         {
-            create(gameState, player, app, camera, ghost, font);
+            create(gameState, gameState.player, app, camera, ghost, font);
         }
 
 

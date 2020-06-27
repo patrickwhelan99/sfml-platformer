@@ -27,10 +27,12 @@ class Entity : public sf::Sprite
         Entity();
         virtual ~Entity();
 
-        virtual void doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config, double deltaTime);
-        virtual void handleCollision(bool xAxis, sf::Vector2f previousPosition, std::vector<block> &blocks, std::vector<Entity*> &entities, cfg &config);
-        virtual void handleEntityCollision(Entity* &collider);
+        virtual void doMovement(std::vector<block> &blocks, std::vector<std::shared_ptr<Entity>> entities, cfg config, double deltaTime);
+        virtual void handleCollision(bool xAxis, sf::Vector2f previousPosition, std::vector<block> &blocks, std::vector<std::shared_ptr<Entity>> &entities, cfg &config);
+        virtual void handleEntityCollision(std::shared_ptr<Entity> &collider);
         virtual void handleBlockCollision(bool xAxis, block &collider);
+
+        int textureIndex = 0;
 
         bool canJump = false;
         bool isFalling = false;
@@ -43,6 +45,21 @@ class Entity : public sf::Sprite
 
         void setIsDead(bool dead){this->isDead = dead;};
         bool getIsDead(){return this->isDead;};
+
+
+        template<class Archive>
+		void save(Archive & archive) const
+		{
+			archive( cereal::make_nvp("x", this->getPosition().x), cereal::make_nvp("y", this->getPosition().y), cereal::make_nvp("texture", textureIndex));
+		}
+
+		template<class Archive>
+		void load(Archive & archive)
+		{
+            float x, y;
+			archive( x, y, textureIndex);
+			this->setPosition(sf::Vector2f(x, y));
+		}
 
 
     protected:

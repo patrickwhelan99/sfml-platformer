@@ -16,7 +16,7 @@ Entity::~Entity()
 
 }
 
-void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config, double deltaTime)
+void Entity::doMovement(std::vector<block> &blocks, std::vector<std::shared_ptr<Entity>> entities, cfg config, double deltaTime)
 {
     const float speed = .2 * config.speed * deltaTime;
     const float gravity = .2 * config.gravity * deltaTime;
@@ -111,7 +111,7 @@ void Entity::doMovement(std::vector<block> &blocks, std::vector<Entity*> entitie
 
 }
 
-void Entity::handleCollision(bool xAxis, sf::Vector2f previousPosition, std::vector<block> &blocks, std::vector<Entity*> &entities, cfg &config)
+void Entity::handleCollision(bool xAxis, sf::Vector2f previousPosition, std::vector<block> &blocks, std::vector<std::shared_ptr<Entity>> &entities, cfg &config)
 {
     bool hit = false;
     for (block &block: blocks)
@@ -143,7 +143,7 @@ void Entity::handleCollision(bool xAxis, sf::Vector2f previousPosition, std::vec
         }
     }
 
-    for(Entity* &e : entities)
+    for(std::shared_ptr<Entity> &e : entities)
     {
         sf::FloatRect entityHitBox = e->getGlobalBounds();
         sf::FloatRect thisHitBox = this->getGlobalBounds();
@@ -163,7 +163,7 @@ void Entity::handleBlockCollision(bool xAxis, block &collider)
 
 }
 
-void Entity::handleEntityCollision(Entity* &collider)
+void Entity::handleEntityCollision(std::shared_ptr<Entity> &collider)
 {
 
 }

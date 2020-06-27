@@ -1,9 +1,10 @@
 #include "../include/custom.h"
+#include "../include/Player.h"
 
 #include <string>
 
 
-void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &camera, block &ghost, sf::Font &font)
+void create(gameState &gs, std::shared_ptr<Player> &player, sf::RenderWindow &app, sf::View &camera, block &ghost, sf::Font &font)
 {
     app.clear();
 
@@ -34,14 +35,14 @@ void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &
     ghost.setTexture(gs.textures->at(gs.bp.textureIndex));
 
 
-    camera.setCenter(player.getPosition().x, player.getPosition().y);
+    camera.setCenter(player->getPosition().x, player->getPosition().y);
     app.setView(camera);
     for (auto const &blocks: gs.blocks)
     {
         app.draw(blocks);
     }
 
-    for(Entity* &e : gs.entities)
+    for(std::shared_ptr<Entity> e : gs.entities)
     {
         app.draw(*e);
     }
@@ -81,5 +82,5 @@ void create(gameState &gs, sf::Sprite &player, sf::RenderWindow &app, sf::View &
     }
 
     movementVector = {x, y};
-    player.move(movementVector);
+    player->move(movementVector);
 }

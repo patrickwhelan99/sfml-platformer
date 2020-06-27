@@ -20,7 +20,7 @@ class gameState
     {
         bool isPositionSnapping = false;
         float snappingSize = 50;
-        int textureIndex = 0;
+        int textureIndex = 1;
     };
 
     struct levelProperties
@@ -33,13 +33,13 @@ class gameState
 
 
 public:
-    Player* player;
+    std::shared_ptr<Player> player;
     blockProperties bp;
     levelProperties lp;
     creativeModeStruct creativeSettings;
     Gamemode gamemode = Gamemode::menu;
     std::vector<block> blocks;
-    std::vector<Entity*> entities;
+    std::vector<std::shared_ptr<Entity>> entities;
     std::vector<sf::Texture>* textures;
 
 

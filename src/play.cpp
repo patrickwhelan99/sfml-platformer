@@ -5,15 +5,15 @@
 #include "../include/gameState.h"
 
 // Function is run inside loop so updates every frame
-void play(gameState *gs, Player &player, sf::View &camera, cfg config, double deltaTime)
+void play(gameState *gs, std::shared_ptr<Player> &player, sf::View &camera, cfg config, double deltaTime)
 {
-    player.handleInput();
+    player->handleInput();
 
-    for(Entity* &e : gs->entities)
+    for(std::shared_ptr<Entity> &e : gs->entities)
     {
         e->doMovement(gs->blocks, gs->entities, config, deltaTime);
 
-        if(e->getIsDead() && dynamic_cast<Player*>(e))
+        if(e->getIsDead() && std::dynamic_pointer_cast<Player>(e))
         {
             e->setPosition(gs->lp.currentCheckpoint);
             e->setIsDead(false);

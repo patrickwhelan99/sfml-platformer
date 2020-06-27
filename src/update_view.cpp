@@ -4,7 +4,7 @@
 #ifndef UPDATE_VIEW_CPP_INCLUDED
 #define UPDATE_VIEW_CPP_INCLUDED
 
-void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, std::vector<Entity*> &entities)
+void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &blocks, std::vector<std::shared_ptr<Entity>> &entities)
 {
     app.clear();
 
@@ -20,7 +20,7 @@ void update_view(sf::RenderWindow &app, sf::View &camera, std::vector<block> &bl
     camera.setCenter(entities.front()->getPosition().x, entities.front()->getPosition().y);
     app.setView(camera);
 
-    for (Entity* &entity: entities)
+    for (std::shared_ptr<Entity> &entity: entities)
     {
         app.draw(*entity);
     }

@@ -12,7 +12,7 @@ Player::~Player()
     //dtor
 }
 
-void Player::doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config, double deltaTime)
+void Player::doMovement(std::vector<block> &blocks, std::vector<std::shared_ptr<Entity>> entities, cfg config, double deltaTime)
 {
     Entity::doMovement(blocks, entities, config, deltaTime);
 

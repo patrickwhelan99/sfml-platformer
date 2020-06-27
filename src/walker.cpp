@@ -11,7 +11,7 @@ walker::~walker()
     //dtor
 }
 
-void walker::doMovement(std::vector<block> &blocks, std::vector<Entity*> entities, cfg config, double deltaTime)
+void walker::doMovement(std::vector<block> &blocks, std::vector<std::shared_ptr<Entity>> entities, cfg config, double deltaTime)
 {
     if(this->currentDirection == Direction::left)
         this->addVelocity(sf::Vector2f(-25, 0));
@@ -21,11 +21,11 @@ void walker::doMovement(std::vector<block> &blocks, std::vector<Entity*> entitie
     Entity::doMovement(blocks, entities, config, deltaTime);
 }
 
-void walker::handleEntityCollision(Entity* &collider)
+void walker::handleEntityCollision(std::shared_ptr<Entity> &collider)
 {
-    if(dynamic_cast<Player*>(collider))
+    if(std::dynamic_pointer_cast<Player>(collider))
     {
-        dynamic_cast<Player*>(collider)->death();
+        std::dynamic_pointer_cast<Player>(collider)->death();
     }
 }
 
