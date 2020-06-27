@@ -26,7 +26,7 @@ class block : public sf::Sprite
         template<class Archive>
 		void save(Archive & archive) const
 		{
-			archive( this->getPosition().x, this->getPosition().y, bp.isDeadly, bp.isCheckpoint, bp.isStart, bp.isFinish, bp.isBreakable, bp.textureIndex);
+			archive( cereal::make_nvp("x", this->getPosition().x), cereal::make_nvp("y", this->getPosition().y), cereal::make_nvp("deadly", bp.isDeadly), cereal::make_nvp("checkpoint", bp.isCheckpoint), cereal::make_nvp("start", bp.isStart), cereal::make_nvp("finish", bp.isFinish), cereal::make_nvp("breakable", bp.isBreakable), cereal::make_nvp("texture", bp.textureIndex));
 		}
 
 		template<class Archive>
