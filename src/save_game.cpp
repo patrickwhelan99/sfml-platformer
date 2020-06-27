@@ -1,21 +1,12 @@
 #include "../include/custom.h"
-#include <vector>
-#include <iostream>
 #include <fstream>
+#include <string>
+#include <cereal/archives/xml.hpp>
+#include <cereal/types/vector.hpp>
 
 void save_game(std::vector<block> &blocks)
 {
-
-
-
-    std::ofstream saveGameFile;
-    saveGameFile.open("savegame");
-
-    for (block &block: blocks)
-    {
-        sf::Vector2f blockPos = block.getPosition();
-        saveGameFile << blockPos.x << "," << blockPos.y << "," << block.bp.isDeadly << "," << block.bp.isStart << "," << block.bp.isCheckpoint << "," << block.bp.isFinish << "," << block.bp.isBreakable << "," << block.bp.textureIndex << std::endl;
-    }
-
-        saveGameFile.close();
+    std::ofstream os("save_games/1");
+    cereal::XMLOutputArchive archive( os );
+    archive( cereal::make_nvp("blocks", blocks) );
 }

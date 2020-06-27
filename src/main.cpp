@@ -80,9 +80,6 @@ int main()
         }
         if(gameState.gamemode == Gamemode::playing)
         {
-
-            printf("%f, %f\n", walk.getPosition().x, walk.getPosition().y);
-
             play(&gameState, player, camera, config, deltaTime);
             update_view(app, camera, gameState.blocks, gameState.entities);
         }
