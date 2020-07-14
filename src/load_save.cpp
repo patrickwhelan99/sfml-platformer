@@ -32,7 +32,7 @@ void load_save(gameState &gs)
         if(!e)
         {
             printf("ERROR: FAILED TO LOAD ENTITY!\n");
-            return;
+            continue;
         }
 
         printf("%i\n", e->textureIndex);

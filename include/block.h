@@ -1,8 +1,8 @@
 #ifndef BLOCK_H_INCLUDED
 #define BLOCK_H_INCLUDED
 #include <SFML/Graphics/Sprite.hpp>
-#include <cereal/archives/xml.hpp>
-#include <cereal/types/vector.hpp>
+#include "../include/cereal/archives/xml.hpp"
+#include "../include/cereal/types/vector.hpp"
 
 struct blockProperties
     {

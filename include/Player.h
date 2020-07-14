@@ -5,10 +5,11 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
-#include <cereal/types/polymorphic.hpp>
-#include <cereal/archives/xml.hpp>
+#include "../include/cereal/types/polymorphic.hpp"
+#include "../include/cereal/archives/xml.hpp"
 
-#include "Entity.h"
+#include "../include/Entity.h"
+
 #include <vector>
 
 
